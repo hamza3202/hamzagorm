@@ -1,9 +1,8 @@
 package hamzagorm
 
-// Will have same result if you use grails.transaction.Rollback
-import grails.gorm.transactions.Rollback
+import grails.test.mixin.integration.Integration
+import grails.transaction.Rollback
 
-import grails.testing.mixin.integration.Integration
 import spock.lang.Specification
 
 
