@@ -1,18 +1,17 @@
 package hamzagorm
 
-import grails.test.mixin.integration.Integration
-import grails.transaction.Rollback
-import spock.lang.Specification
-
-@Integration
-class GlobalIdStoreServiceIntegrationSpec extends Specification {
+class GlobalIdStoreServiceIntegrationSpec extends BaseSpec {
 
     GlobalIdStoreService globalIdStoreService
 
-    @Rollback
     void 'test unique constraint'() {
         // just verifying that GORM is accessible as expected in this @Rollback method
-        expect:
+        when: "dummy user is saved and account is unlocked"
+        GlobalIdStore globalIdStore = new GlobalIdStore()
+        globalIdStore.publicId = "testPublicID"
+        globalIdStore.save(flush: true, failOnError: true)
+
+        then:
         globalIdStoreService.save 'testPublicId'
         globalIdStoreService.save 'anotherTestPublicId'
         !globalIdStoreService.save('testPublicId')
